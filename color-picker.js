@@ -2,11 +2,11 @@
 
 Purty Picker Copyright 2013 Jayden Seric (MIT license).
 
-https://github.com/jaydenseric/purty-picker
+A super lightweight visual HSL, RGB and hex color picker with a responsive, touch-friendly and customizable UI.
 
-A super lightweight visual HSL, RGB and hex color picker with a responsive, touch-friendly and customisable UI.
+Requires jQuery or Zepto with core and event modules.
 
-For modern browsers (IE10+). Requires jQuery or Zepto with core and event modules.
+https://github.com/jaydenseric/Purty-Picker
 
 */
 
