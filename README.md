@@ -1,6 +1,6 @@
 # Purty Picker
 
-A super lightweight visual HSL, RGB and hex color picker with a responsive, touch-friendly and customizable UI. Works with [jQuery](https://github.com/jquery/jquery) or [Zepto](https://github.com/madrobby/zepto).
+A super lightweight visual HSL, RGB and hex color picker with a responsive, touch-friendly and customizable UI. Compatible with [jQuery](https://github.com/jquery/jquery) or [Zepto](https://github.com/madrobby/zepto).
 
 ## Screenshots
 
