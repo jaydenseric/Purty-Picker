@@ -37,7 +37,7 @@ Reorder components or add markup to your heart's content. Just keep the core cla
 
 ## Browser Support
 
-For modern browsers (IE10+), mostly due to the use of CSS3 linear gradients. Support for older browsers should be possible with a few modifications.
+For modern browsers (IE10+ and recent versions of Chrome, Safari, Firefox), mostly due to the use of CSS3 linear gradients. Support for older browsers should be possible with a few modifications.
 
 ## Dependencies
 
