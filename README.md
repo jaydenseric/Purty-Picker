@@ -4,21 +4,22 @@ A super lightweight visual HSL, RGB and hex color picker with a responsive, touc
 
 ## Screenshots
 
+To try it out [Download the project ZIP](https://github.com/jaydenseric/purty-picker/archive/master.zip) and open `demo.html` in your browser.
+
 <img src="screenshots.png" alt="Purty Picker in Safari screenshots" width="314" height="527" />
 
 ## Features
 
 * Small file-size (~4kb minified) with < 300 lines of source JS ([Spectrum](https://github.com/bgrins/spectrum/blob/master/spectrum.js) exceeds 2000 lines).
-* Multiple pickers may be used on a page.
+* Compact and simple design with native controls. The color input also serves as a preview (text color automatically inverts for legibility).
 * Responsive. Everything is percent and not pixel based.
+* HDPI "Retina" quality CSS based UI.
 * Touch friendly.
 * Color picker markup is your own and not JS generated.
 * Semantic class and file names (e.g. using `.color-picker` and not `.purty-picker`).
-* Compact and simple design. Controls are as native as possible. The color input also serves as a preview (text color automatically inverts for legibility).
-* HDPI "Retina" quality CSS based UI.
 * CSS is split into core and customization, allowing you to easily get started on your own skin.
 * Simple enough to reverse-engineer and extend with your own features.
-* Inexpensive and automatic initialization.
+* Inexpensive and automatic initialization. Multiple pickers may be used on a page.
 
 ## Usage
 
