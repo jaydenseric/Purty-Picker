@@ -23,24 +23,21 @@ To try it out [Download the project ZIP](https://github.com/jaydenseric/purty-pi
 
 ## Usage
 
-Add the `.color-picker` markup, making sure to:
-
-* Set a default `.color` input value (CSS valid HSL, RGB or hex).
-* Mark the relevant color `.format` option as `selected`.
-
-Include [color-picker.js](https://github.com/jaydenseric/purty-picker/blob/master/color-picker.js) on the page for it to automatically find and enable every `.color-picker`.
-
-Take a look at [demo.html](https://github.com/jaydenseric/purty-picker/blob/master/demo.html) to see example markup for the default skin in [color-picker.css](https://github.com/jaydenseric/purty-picker/blob/master/color-picker.css).
+1. Take a look at [demo.html](https://github.com/jaydenseric/purty-picker/blob/master/demo.html) to see example markup for the default skin. Add the `.color-picker` markup to your page, making sure to:
+	* Set a default `.color` input value (CSS valid HSL, RGB or hex).
+	* Mark the relevant color `.format` option as `selected`.
+2. Add [color-picker.css](https://github.com/jaydenseric/purty-picker/blob/master/color-picker.css) to the page.
+3. Add [color-picker.js](https://github.com/jaydenseric/purty-picker/blob/master/color-picker.js) to the page for it to automatically find and enable every `.color-picker`.
 
 ### Customization
 
 Reorder components or add markup to your heart's content. Just keep the core classnames on the core components and don't remove the required child `div` of `.spectrum` containing `.pin` as it serves as the luminosity filter.
 
-The CSS is split into core and customization; use the default skin in the customization section as a custom skin boilerplate.
+[color-picker.scss](https://github.com/jaydenseric/purty-picker/blob/master/color-picker.scss) (which compiles to [color-picker.css](https://github.com/jaydenseric/purty-picker/blob/master/color-picker.css)) is split into core and customization styles; use the default skin in the customization section as a custom skin boilerplate.
 
 ## Browser Support
 
-For modern browsers (IE10+), mostly due to the use of CSS3 linear gradients. Support for older browsers could be possible with a few modifications.
+For modern browsers (IE10+), mostly due to the use of CSS3 linear gradients. Support for older browsers should be possible with a few modifications.
 
 ## Dependencies
 
