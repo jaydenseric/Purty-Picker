@@ -2,11 +2,11 @@
 
 A super lightweight visual HSL, RGB and hex color picker with a responsive, touch-friendly and customizable UI. Compatible with [jQuery](https://github.com/jquery/jquery) or [Zepto](https://github.com/madrobby/zepto).
 
-## Screenshots
+## Demo
 
-To try it out [Download the project ZIP](https://github.com/jaydenseric/purty-picker/archive/master.zip) and open `demo.html` in your browser.
+Try out `demo.html` [via RawGit](http://rawgit.com/jaydenseric/Purty-Picker/master/demo.html).
 
-<img src="screenshots.png" alt="Purty Picker in Safari screenshots" width="314" height="527" />
+<img src="screenshots.png" alt="Purty Picker in Safari screenshots" width="314" />
 
 ## Features
 
