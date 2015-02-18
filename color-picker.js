@@ -25,15 +25,15 @@ $(function() {
 		s /= 100;
 		l /= 100;
 		var r, g, b;
-		if(s == 0) {
+		if (s == 0) {
 			r = g = b = l; // Achromatic
 		} else {
 			var hueToRGB = function(p, q, t) {
-				if(t < 0) t += 1;
-				if(t > 1) t -= 1;
-				if(t < 1/6) return p + (q - p) * 6 * t;
-				if(t < 1/2) return q;
-				if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+				if (t < 0) t += 1;
+				if (t > 1) t -= 1;
+				if (t < 1/6) return p + (q - p) * 6 * t;
+				if (t < 1/2) return q;
+				if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
 				return p;
 			};
 			var	q = l < 0.5 ? l * (1 + s) : l + s - l * s,
@@ -43,9 +43,9 @@ $(function() {
 			b = hueToRGB(p, q, h - 1/3);
 		}
 		return {
-			red:	Math.round(r * 255),
-			green:	Math.round(g * 255),
-			blue:	Math.round(b * 255)
+			red		: Math.round(r * 255),
+			green	: Math.round(g * 255),
+			blue	: Math.round(b * 255)
 		};
 	}
 
@@ -73,9 +73,9 @@ $(function() {
 			h /= 6;
 		}
 		return {
-			hue:		Math.round(h * 360),
-			saturation:	Math.round(s * 100),
-			luminosity: Math.round(l * 100)
+			hue			: Math.round(h * 360),
+			saturation	: Math.round(s * 100),
+			luminosity	: Math.round(l * 100)
 		};
 	}
 
@@ -97,9 +97,9 @@ $(function() {
 			g		= (bigInt >> 8) & 255,
 			b		= bigInt & 255;
 		return {
-			red:	r,
-			green:	g,
-			blue:	b
+			red		: r,
+			green	: g,
+			blue	: b
 		};
 	}
 
@@ -137,9 +137,9 @@ $(function() {
 				width		= $spectrum.width(),
 				height		= $spectrum.height();
 			return {
-				hue:		Math.round(position.left / width * 360),
-				saturation:	Math.round(position.top / height * 100),
-				luminosity:	$luminosityInput.val()
+				hue			: Math.round(position.left / width * 360),
+				saturation	: Math.round(position.top / height * 100),
+				luminosity	: $luminosityInput.val()
 			};
 		}
 
@@ -178,9 +178,9 @@ $(function() {
 				case 'HSL':
 					var values = $(this).val().match(/\d+/g);
 					HSL = {
-						hue:		values[0],
-						saturation:	values[1],
-						luminosity:	values[2]
+						hue			: values[0],
+						saturation	: values[1],
+						luminosity	: values[2]
 					};
 					break;
 				case 'RGB':
@@ -196,8 +196,8 @@ $(function() {
 			setLuminosity(HSL.luminosity);
 			// Place the pin
 			$pin.css({
-				left: HSL.hue / 360 * 100 + '%',
-				top: HSL.saturation + '%'
+				left	: HSL.hue / 360 * 100 + '%',
+				top		: HSL.saturation + '%'
 			});
 			// Trigger color picker change event for custom callbacks
 			$picker.trigger('change');
@@ -233,28 +233,19 @@ $(function() {
 //---------- Move the pin
 
 		var movePin = function(event) {
-			var	offset	= $spectrum.offset(),
-				width	= $spectrum.width(),
-				height	= $spectrum.height(),
-				x		= event.clientX - offset.left,
-				y		= event.clientY - offset.top;
-			// Account for pin being dragged outside the spectrum area
-			// Sanatize x
-			if (x < 0) {
-				x = 0;
-			} else if (x >= width) {
-				x = width;
-			}
-			// Sanatize y
-			if (y < 0) {
-				y = 0;
-			} else if (y >= height) {
-				y = height;
-			}
+			var	bounds	= $spectrum[0].getBoundingClientRect(),
+				x		= event.clientX - bounds.left,
+				y		= event.clientY - bounds.top;
+			// Prevent dragging pin outside spectrum area horizontally
+			if (x < 0) x = 0;
+			else if (x > bounds.width) x = bounds.width;
+			// Prevent dragging pin outside spectrum area vertically
+			if (y < 0) y = 0;
+			else if (y > bounds.height) y = bounds.height;
 			// Place the pin
 			$pin.css({
-				left: x / width * 100 + '%',
-				top: y / height * 100 + '%'
+				left	: x / bounds.width * 100 + '%',
+				top		: y / bounds.height * 100 + '%'
 			});
 			// Output new color value
 			updateColorInput();
