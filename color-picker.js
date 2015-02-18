@@ -123,23 +123,23 @@ $(function() {
 
 //---------------------- Find componenets
 
-		var	picker			= $(this),
-			formatInput		= picker.find('.format'),
-			colorInput		= picker.find('.color'),
-			luminosityInput	= picker.find('input[type=range]'),
-			spectrum		= picker.find('.spectrum'),
-			pin				= picker.find('.pin');
+		var	$picker				= $(this),
+			$formatInput		= $picker.find('.format'),
+			$colorInput			= $picker.find('.color'),
+			$luminosityInput	= $picker.find('input[type=range]'),
+			$spectrum			= $picker.find('.spectrum'),
+			$pin				= $picker.find('.pin');
 
 //---------------------- Get current color in HSL
 
 		function getHSL() {
-			var	position	= picker.find('.pin').position(),
-				width		= spectrum.width(),
-				height		= spectrum.height();
+			var	position	= $picker.find('.pin').position(),
+				width		= $spectrum.width(),
+				height		= $spectrum.height();
 			return {
 				hue:		Math.round(position.left / width * 360),
 				saturation:	Math.round(position.top / height * 100),
-				luminosity:	luminosityInput.val()
+				luminosity:	$luminosityInput.val()
 			};
 		}
 
@@ -147,34 +147,34 @@ $(function() {
 
 		function updateColorInput() {
 			var	HSL = getHSL();
-			switch (formatInput.val()) {
+			switch ($formatInput.val()) {
 				case 'HSL':
-					colorInput.val('hsl(' + HSL.hue + ', ' + HSL.saturation + '%, ' + HSL.luminosity + '%)');
+					$colorInput.val('hsl(' + HSL.hue + ', ' + HSL.saturation + '%, ' + HSL.luminosity + '%)');
 					break;
 				case 'RGB':
 					var RGB = HSLToRGB(HSL.hue, HSL.saturation, HSL.luminosity);
-					colorInput.val('rgb(' + RGB.red + ', ' + RGB.green + ', ' + RGB.blue + ')');
+					$colorInput.val('rgb(' + RGB.red + ', ' + RGB.green + ', ' + RGB.blue + ')');
 					break;
 				case 'Hex':
-					colorInput.val(HSLToHex(HSL.hue, HSL.saturation, HSL.luminosity));
+					$colorInput.val(HSLToHex(HSL.hue, HSL.saturation, HSL.luminosity));
 					break;
 			}
 			// Trigger color picker change event for custom callbacks
-			picker.trigger('change');
+			$picker.trigger('change');
 		}
 
 //---------------------- Set color format
 
-		formatInput.on('change', function() {
+		$formatInput.on('change', function() {
 			updateColorInput();
 		});
 
 //---------------------- Set color
 
-		colorInput.on('change', function() {
+		$colorInput.on('change', function() {
 			// Get the color values in HSL format
 			var HSL;
-			switch (formatInput.val()) {
+			switch ($formatInput.val()) {
 				case 'HSL':
 					var values = $(this).val().match(/\d+/g);
 					HSL = {
@@ -192,15 +192,15 @@ $(function() {
 					break;
 			}
 			// Set the luminosity
-			luminosityInput.val(HSL.luminosity);
+			$luminosityInput.val(HSL.luminosity);
 			setLuminosity(HSL.luminosity);
 			// Place the pin
-			pin.css({
+			$pin.css({
 				left: HSL.hue / 360 * 100 + '%',
 				top: HSL.saturation + '%'
 			});
 			// Trigger color picker change event for custom callbacks
-			picker.trigger('change');
+			$picker.trigger('change');
 		});
 
 //---------------------- Set luminosity
@@ -218,12 +218,12 @@ $(function() {
 				alpha = luminosity / 100 * 2 - 1;
 			}
 			// Apply luminosity to the spectrum
-			spectrum.children().css('background-color', 'rgba(' + color + ', ' + alpha + ')');
+			$spectrum.children().css('background-color', 'rgba(' + color + ', ' + alpha + ')');
 		}
 
 //---------- Luminosity input interaction
 
-		luminosityInput.on('change', function() {
+		$luminosityInput.on('change', function() {
 			setLuminosity($(this).val());
 			updateColorInput();
 		});
@@ -233,9 +233,9 @@ $(function() {
 //---------- Move the pin
 
 		var movePin = function(event) {
-			var	offset	= spectrum.offset(),
-				width	= spectrum.width(),
-				height	= spectrum.height(),
+			var	offset	= $spectrum.offset(),
+				width	= $spectrum.width(),
+				height	= $spectrum.height(),
 				x		= event.clientX - offset.left,
 				y		= event.clientY - offset.top;
 			// Account for pin being dragged outside the spectrum area
@@ -252,7 +252,7 @@ $(function() {
 				y = height;
 			}
 			// Place the pin
-			pin.css({
+			$pin.css({
 				left: x / width * 100 + '%',
 				top: y / height * 100 + '%'
 			});
@@ -262,29 +262,29 @@ $(function() {
 
 //---------- Pin interaction
 
-		spectrum.on('mousedown', function(event) {
+		$spectrum.on('mousedown', function(event) {
 			event.preventDefault();
 			movePin(event);
-			spectrum.addClass('active');
+			$spectrum.addClass('active');
 			$(document).on('mousemove', movePin);
 		});
 
 		$(document).on('mouseup', function() {
-			spectrum.removeClass('active');
+			$spectrum.removeClass('active');
 			$(document).off('mousemove', movePin);
 		});
 
-		spectrum.on('touchmove touchstart', movePin);
+		$spectrum.on('touchmove touchstart', movePin);
 
 //---------------------- Output color preview
 
-		picker.on('change', function() {
-			colorInput.css('background-color', colorInput.val()).toggleClass('dark', luminosityInput.val() <= 50);
+		$picker.on('change', function() {
+			$colorInput.css('background-color', $colorInput.val()).toggleClass('dark', $luminosityInput.val() <= 50);
 		});
 
 //---------------------- Initialize this color picker
 
-		colorInput.trigger('change');
+		$colorInput.trigger('change');
 
 	});
 });
