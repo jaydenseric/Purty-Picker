@@ -237,7 +237,7 @@ $(function() {
 				width	= spectrum.width(),
 				height	= spectrum.height(),
 				x		= event.clientX - offset.left,
-				y		= event.clientY - offset.top;
+				y		= $(window).scrollTop() - offset.top + event.clientY;
 			// Account for pin being dragged outside the spectrum area
 			// Sanatize x
 			if (x < 0) {
