@@ -1,16 +1,5 @@
-/*
+// Purty Picker: https://github.com/jaydenseric/Purty-Picker
 
-Purty Picker Copyright 2013 Jayden Seric (MIT license).
-
-A super lightweight visual HSL, RGB and hex color picker with a responsive, touch-friendly and customizable UI.
-
-Requires jQuery or Zepto with core and event modules.
-
-https://github.com/jaydenseric/Purty-Picker
-
-*/
-
-// DOM ready
 $(function() {
 	'use strict';
 
@@ -75,7 +64,7 @@ $(function() {
 		return {
 			hue			: Math.round(h * 360),
 			saturation	: Math.round(s * 100),
-			luminosity	: Math.round(l * 100)
+			lightness	: Math.round(l * 100)
 		};
 	}
 
@@ -126,8 +115,9 @@ $(function() {
 		var	$picker				= $(this),
 			$formatInput		= $picker.find('.format'),
 			$colorInput			= $picker.find('.color'),
-			$luminosityInput	= $picker.find('input[type=range]'),
+			$lightnessInput		= $picker.find('input[type=range]'),
 			$spectrum			= $picker.find('.spectrum'),
+			$lightnessFilter	= $picker.find('.lightness-filter'),
 			$pin				= $picker.find('.pin');
 
 //---------------------- Get current color in HSL
@@ -139,7 +129,7 @@ $(function() {
 			return {
 				hue			: Math.round(position.left / width * 360),
 				saturation	: Math.round(position.top / height * 100),
-				luminosity	: $luminosityInput.val()
+				lightness	: $lightnessInput.val()
 			};
 		}
 
@@ -149,14 +139,14 @@ $(function() {
 			var	HSL = getHSL();
 			switch ($formatInput.val()) {
 				case 'HSL':
-					$colorInput.val('hsl(' + HSL.hue + ', ' + HSL.saturation + '%, ' + HSL.luminosity + '%)');
+					$colorInput.val('hsl(' + HSL.hue + ', ' + HSL.saturation + '%, ' + HSL.lightness + '%)');
 					break;
 				case 'RGB':
-					var RGB = HSLToRGB(HSL.hue, HSL.saturation, HSL.luminosity);
+					var RGB = HSLToRGB(HSL.hue, HSL.saturation, HSL.lightness);
 					$colorInput.val('rgb(' + RGB.red + ', ' + RGB.green + ', ' + RGB.blue + ')');
 					break;
 				case 'Hex':
-					$colorInput.val(HSLToHex(HSL.hue, HSL.saturation, HSL.luminosity));
+					$colorInput.val(HSLToHex(HSL.hue, HSL.saturation, HSL.lightness));
 					break;
 			}
 			// Trigger color picker change event for custom callbacks
@@ -180,7 +170,7 @@ $(function() {
 					HSL = {
 						hue			: values[0],
 						saturation	: values[1],
-						luminosity	: values[2]
+						lightness	: values[2]
 					};
 					break;
 				case 'RGB':
@@ -191,9 +181,9 @@ $(function() {
 					HSL = hexToHSL($(this).val());
 					break;
 			}
-			// Set the luminosity
-			$luminosityInput.val(HSL.luminosity);
-			setLuminosity(HSL.luminosity);
+			// Set the lightness
+			$lightnessInput.val(HSL.lightness);
+			setLightness(HSL.lightness);
 			// Place the pin
 			$pin.css({
 				left	: HSL.hue / 360 * 100 + '%',
@@ -203,28 +193,28 @@ $(function() {
 			$picker.trigger('change');
 		});
 
-//---------------------- Set luminosity
+//---------------------- Set lightness
 
-//---------- Set the luminosity spectrum overlay
+//---------- Set the lightness spectrum overlay
 
-		function setLuminosity(luminosity) {
+		function setLightness(lightness) {
 			var color,
 				alpha;
-			if (luminosity <= 50) {
+			if (lightness <= 50) {
 				color = '0, 0, 0';
-				alpha = 1 - luminosity / 100 * 2;
+				alpha = 1 - lightness / 100 * 2;
 			} else {
 				color = '255, 255, 255';
-				alpha = luminosity / 100 * 2 - 1;
+				alpha = lightness / 100 * 2 - 1;
 			}
-			// Apply luminosity to the spectrum
-			$spectrum.children().css('background-color', 'rgba(' + color + ', ' + alpha + ')');
+			// Apply lightness to the spectrum
+			$lightnessFilter.css('background-color', 'rgba(' + color + ', ' + alpha + ')');
 		}
 
-//---------- Luminosity input interaction
+//---------- Lightness input interaction
 
-		$luminosityInput.on('change', function() {
-			setLuminosity($(this).val());
+		$lightnessInput.on('change', function() {
+			setLightness($(this).val());
 			updateColorInput();
 		});
 
@@ -270,12 +260,11 @@ $(function() {
 //---------------------- Output color preview
 
 		$picker.on('change', function() {
-			$colorInput.css('background-color', $colorInput.val()).toggleClass('dark', $luminosityInput.val() <= 50);
+			$colorInput.css('background-color', $colorInput.val()).toggleClass('dark', $lightnessInput.val() <= 50);
 		});
 
 //---------------------- Initialize this color picker
 
 		$colorInput.trigger('change');
-
 	});
 });
